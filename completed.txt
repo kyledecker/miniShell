@@ -1,0 +1,111 @@
+
+I have finished steps 1 through 3, as well as half of step 4 (redirections).
+I was unable to complete the piping of commands due to lack of time.  
+
+I have tested this code significantly in order to ensure
+proper behavior as well as ensure there are no memory leaks.
+
+Test case protocol here:
+
+The below test cases should be run after starting the executable myShell
+
+Test case 1 (Working with absolute paths)-
+/bin/ls
+/bins/ls /home/ksd15
+/bin/ls -l
+/bin/ls -l /home/ksd15
+exit
+
+Test case 2 (Searching for programs in PATH)-
+ls
+ls -l
+ls -l /home/ksd15
+exit
+
+Test case 3 (Arbitray whitespace between arguments)
+ls                  -l
+ls        -l       /home/ksd15
+exit
+
+Test case 4 (Running my own executable from myShell)-
+../92_dedup/dedup ../92_dedup
+exit
+
+Test case 5 (Blank input)-
+[empty input, just press enter]
+exit
+
+Test case 6 (Garbage input for command)-
+blah blah boooooo 10101010
+abcdefg this is not a real program
+exit
+
+Test case 7 (Changing directories)-
+pwd
+cd ..
+cd ..
+cd /home/ksd15
+cd /home/ksd15/ece551
+ls
+ls -l
+pwd
+exit
+
+Test case 8 (Accounting for escaped spaces in command arguments)-
+mkdir a\ b\ c
+cd a\ b\ c
+pwd
+exit
+
+Test case 9 (Changing into directory that does not exit)-
+pwd
+cd /madeup_dir
+cd ..
+exit
+
+Test case 10 (Working with pushd, popd, and dirstack)-
+pwd
+cd ..
+pushd /home
+cd /home/ksd15/ece551/92_dedup
+pushd /home/ksd15
+dirstack
+popd
+dirstack
+pwd
+popd
+dirstack
+exit
+
+Test case 11 (Exiting while dirstack is not empty)-
+pwd
+cd ..
+pushd /home
+cd /home/ksd15/ece551/92_dedup
+pushd /home/ksd15
+dirstack
+exit
+
+Test case 12 (Try to popd with empty directory stack)-
+popd
+exit
+
+Test case 13 (Standard Output redirection)-
+ls -l > out.txt
+cat out.txt
+exit
+
+Test case 14 (Standard Error redirection)-
+ls -l someMadeUpFile 2> out.txt
+cat out.txt
+exit
+
+Test case 15 (Standard Output and Input redirection)-
+echo "Testing" > out.txt
+cat < out.txt
+exit
+
+Test case 16 (Standard Output and Input redirection 2)-
+echo "Testing" > out.txt
+cat < out.txt > out2.txt
+exit
